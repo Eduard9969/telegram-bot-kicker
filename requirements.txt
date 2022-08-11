@@ -16,3 +16,4 @@ rsa==4.9
 Telethon==1.24.0
 urllib3==1.26.11
 yarl==1.8.1
+python-dotenv==0.20.0

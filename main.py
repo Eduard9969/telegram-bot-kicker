@@ -32,21 +32,23 @@ async def chat_m(message: types.ChatMemberUpdated):
         user_name = format_user_name(new.user)
         is_admin = new.can_manage_chat if new.can_manage_chat is not None else False
 
-        logger.info('{name} joined on the channel'.format(name=user_name))
+        logger.info('%s joined on the channel', user_name)
 
         if not is_admin:
-            await bot.ban_chat_member(message.chat.id, new.user.id, revoke_messages=False)  # Kick member
-            logger.info('{name} was kicked from the channel'.format(name=user_name))
+            # Kick member
+            await bot.ban_chat_member(message.chat.id, new.user.id, revoke_messages=False)
+            logger.info('%s was kicked from the channel', user_name)
 
-            await bot.unban_chat_member(message.chat.id, new.user.id)  # UnBan member
-            logger.info('{name} was unbanned on the channel'.format(name=user_name))
+            # UnBan member
+            await bot.unban_chat_member(message.chat.id, new.user.id)
+            logger.info('%s was unbanned on the channel', user_name)
 
         else:
-            logger.info('{name} is admin and still place on the channel'.format(name=user_name))
+            logger.info('%s is admin and still place on the channel', user_name)
 
 
 def format_user_name(user: User):
-    return f"{user.first_name} {user.last_name}, username: @{user.username}"
+    return f'{user.first_name} {user.last_name}, username: @{user.username}'
 
 
 asyncio.run(
